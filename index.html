@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>M-Fetch</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="layar-aplikasi">
+        <header class="app-bar">
+            <div class="wadah-logo">
+                <img src="assets/logo.png" alt="Logo" style="width: 28px; height: 28px; border-radius: 6px; pointer-events: none;">
+                <h1 class="judul-aplikasi">M-Fetch</h1>
+            </div>
+        </header>
+
+        <main class="konten-utama">
+            <section class="halaman aktif" id="page-download" data-page="download">
+                <nav class="navigasi-sosmed" aria-label="Platform">
+                    <button class="tombol-tab aktif" data-platform="youtube"><img src="assets/icons/icons_youtube.jpg" alt="YouTube" class="ikon-sosmed"><span>YouTube</span></button>
+                    <button class="tombol-tab" data-platform="tiktok"><img src="assets/icons/icons_tiktok.jpg" alt="TikTok" class="ikon-sosmed"><span>TikTok</span></button>
+                    <button class="tombol-tab" data-platform="instagram"><img src="assets/icons/icons_instagram.jpg" alt="Instagram" class="ikon-sosmed"><span>Instagram</span></button>
+                    <button class="tombol-tab" data-platform="facebook"><img src="assets/icons/icons_facebook.jpg" alt="Facebook" class="ikon-sosmed"><span>Facebook</span></button>
+                    <button class="tombol-tab" data-platform="twitter"><img src="assets/icons/icons_x.jpg" alt="X" class="ikon-sosmed"><span>X</span></button>
+                    <button class="tombol-tab" data-platform="pinterest"><img src="assets/icons/icons_pinterest.jpg" alt="Pinterest" class="ikon-sosmed"><span>Pinterest</span></button>
+                    <button class="tombol-tab" data-platform="reddit"><img src="assets/icons/icons_reddit.jpg" alt="Reddit" class="ikon-sosmed"><span>Reddit</span></button>
+                    <button class="tombol-tab" data-platform="bilibili"><img src="assets/icons/icons_bilibili.jpg" alt="Bilibili" class="ikon-sosmed"><span>Bilibili</span></button>
+                    <button class="tombol-tab" data-platform="spotify"><img src="assets/icons/icons_spotify.jpg" alt="Spotify" class="ikon-sosmed"><span>Spotify</span></button>
+                    <button class="tombol-tab" data-platform="twitch"><img src="assets/icons/icons_twitch.jpg" alt="Twitch" class="ikon-sosmed"><span>Twitch</span></button>
+                    <button class="tombol-tab" data-platform="rednote"><img src="assets/icons/icons_rednote.jpg" alt="RedNote" class="ikon-sosmed"><span>RedNote</span></button>
+                </nav>
+
+                <div class="panel-alat">
+                    <form id="formUnduh">
+                        <div class="grup-input">
+                            <div class="pembungkus-input">
+                                <i class="fa-solid fa-link ikon-input"></i>
+                                <input type="url" class="input-teks" id="inputUrl" placeholder="Tempel URL media di sini..." required>
+                                <button type="button" class="tombol-aksi-kecil" id="btnTempel">Paste</button>
+                            </div>
+                            <button type="button" class="tombol-teks" id="btnCek">Pratinjau Media</button>
+                        </div>
+
+                        <div class="pratinjau-media sembunyi" id="areaHasil">
+                            <div class="wadah-thumb">
+                                <img src="" alt="Thumbnail" id="gambarThumb">
+                                <span class="durasi-thumb" id="teksDurasi">00:00</span>
+                            </div>
+                            <div class="info-thumb">
+                                <h2 id="teksJudul">Memuat judul...</h2>
+                                <span class="info-ukuran-awal" id="teksUkuranAwal"></span>
+                            </div>
+                        </div>
+
+                        <div class="grup-pengaturan">
+                            <div class="baris-opsi">
+                                <span class="label-opsi">Format:</span>
+                                <div class="kontrol-segmen">
+                                    <button type="button" class="segmen aktif" data-format="mp4">MP4</button>
+                                    <button type="button" class="segmen" data-format="mp3">MP3</button>
+                                </div>
+                            </div>
+                            <div class="baris-opsi">
+                                <span class="label-opsi">Kualitas:</span>
+                                <select class="input-pilihan" id="pilihKualitas"></select>
+                            </div>
+                        </div>
+
+                        <details class="opsi-ekstra">
+                            <summary><i class="fa-solid fa-scissors"></i> Potong Durasi</summary>
+                            <div class="wadah-potong">
+                                <div class="kolom-potong">
+                                    <label>Detik Mulai</label>
+                                    <input type="number" id="trimMulai" class="input-teks" min="0" placeholder="0">
+                                </div>
+                                <div class="kolom-potong">
+                                    <label>Detik Akhir</label>
+                                    <input type="number" id="trimAkhir" class="input-teks" min="1" placeholder="Selesai">
+                                </div>
+                            </div>
+                        </details>
+
+                        <button type="submit" class="tombol-utama"><i class="fa-solid fa-download"></i> Unduh Sekarang</button>
+
+                        <div class="area-proses sembunyi" id="areaProses">
+                            <div class="info-proses">
+                                <span id="teksStatusUnduh">Mengunduh Media...</span>
+                                <span id="teksPersentase">0%</span>
+                            </div>
+                            <div class="bar-proses-bg">
+                                <div class="bar-proses-isi" id="barProses"></div>
+                            </div>
+                            <div class="detail-proses">
+                                <span id="teksKecepatan"><i class="fa-solid fa-gauge-high"></i> 0 MB/s</span>
+                                <span id="teksUkuran"><i class="fa-solid fa-hard-drive"></i> 0 MB / 0 MB</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="panel-riwayat">
+                    <div class="header-panel">
+                        <h3>Riwayat Terbaru</h3>
+                        <span class="info-angka" id="angkaRiwayat">0 File</span>
+                    </div>
+                    <div class="daftar-item" id="daftarRiwayat"></div>
+                    <div class="kondisi-kosong" id="riwayatKosong">Belum ada aktivitas.</div>
+                </div>
+            </section>
+
+            <section class="halaman" id="page-queue" data-page="queue" hidden>
+                <div class="header-halaman">
+                    <h2>Pusat Antrean</h2>
+                    <span class="info-angka" id="angkaAntrean">0 Tugas</span>
+                </div>
+                <div class="metrik-antrean">
+                    <div class="kartu-metrik"><span id="metrikJalan" class="biru">0</span><label>Berjalan</label></div>
+                    <div class="kartu-metrik"><span id="metrikTunggu" class="kuning">0</span><label>Menunggu</label></div>
+                    <div class="kartu-metrik"><span id="metrikSelesai" class="hijau">0</span><label>Selesai</label></div>
+                </div>
+                <div class="daftar-item" id="daftarAntrean"></div>
+                <div class="kondisi-kosong" id="antreanKosong">Tidak ada antrean aktif.</div>
+            </section>
+
+            <section class="halaman" id="page-library" data-page="library" hidden>
+                <div class="header-halaman">
+                    <h2>Pustaka Media</h2>
+                    <button class="tombol-aksi-kecil" id="btnRefreshFile"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+                </div>
+                <div class="panel-pemutar">
+                    <div class="layar-pemutar">
+                        <div class="layar-kosong" id="pemutarKosong"><i class="fa-solid fa-photo-film"></i><p>Pilih media untuk diputar</p></div>
+                        <video id="videoPlayer" controls hidden></video>
+                        <audio id="audioPlayer" controls hidden></audio>
+                    </div>
+                    <div class="info-pemutar" id="judulPemutar">-</div>
+                </div>
+                <div class="daftar-item mt-16" id="daftarFile"></div>
+                <div class="kondisi-kosong" id="fileKosong">Pustaka kosong.</div>
+            </section>
+
+            <section class="halaman" id="page-settings" data-page="settings" hidden>
+                <div class="header-halaman"><h2>Pengaturan Lokal</h2></div>
+                <form class="panel-alat" id="formPengaturan">
+                    <div class="grup-input mb-16">
+                        <label class="label-opsi">Direktori Unduhan</label>
+                        <input type="text" class="input-teks" id="folderUnduh" required placeholder="/storage/emulated/0/Download/MFetch">
+                    </div>
+                    <div class="grup-input mb-16">
+                        <label class="label-opsi">Resolusi Video Default</label>
+                        <select class="input-pilihan" id="resolusiDefault">
+                            <option value="480">480p (Hemat Data)</option>
+                            <option value="720">720p (Standar)</option>
+                            <option value="1080">1080p (HD)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="tombol-utama sukses"><i class="fa-solid fa-check"></i> Simpan Pengaturan</button>
+                </form>
+            </section>
+        </main>
+
+        <nav class="navigasi-bawah" aria-label="Menu Utama">
+            <ul>
+                <li class="list aktif" data-view="download">
+                    <div class="nav-item">
+                        <span class="icon"><i class="fa-solid fa-house"></i></span>
+                        <span class="text">Utama</span>
+                    </div>
+                </li>
+                <li class="list" data-view="queue">
+                    <div class="nav-item">
+                        <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+                        <span class="text">Antrean</span>
+                    </div>
+                </li>
+                <li class="list" data-view="library">
+                    <div class="nav-item">
+                        <span class="icon"><i class="fa-solid fa-circle-play"></i></span>
+                        <span class="text">Pustaka</span>
+                    </div>
+                </li>
+                <li class="list" data-view="settings">
+                    <div class="nav-item">
+                        <span class="icon"><i class="fa-solid fa-gear"></i></span>
+                        <span class="text">Setelan</span>
+                    </div>
+                </li>
+                <li class="indicator"></li>
+            </ul>
+        </nav>
+
+        <div class="toast-notifikasi sembunyi" id="toastPesan">Notifikasi</div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
